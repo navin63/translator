@@ -1,0 +1,8 @@
+In your Computer must should have installed python application
+And dir like==> PS C:\Users\HP\Desktop\Translator> and then run those tow command in your command prompt
+
+STEP-1
+pip install -r requirements.txt
+
+STEP-2
+python app.py Or flask run

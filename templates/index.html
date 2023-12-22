@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Translation App</title>
+    <script>
+        function toggleForm() {
+            var selectedLanguage = document.getElementById("language").value;
+            var englishForm = document.getElementById("englishForm");
+            var hindiForm = document.getElementById("hindiForm");
+
+            if (selectedLanguage === "en") {
+                englishForm.style.display = "block";
+                hindiForm.style.display = "none";
+            } else if (selectedLanguage === "hi") {
+                hindiForm.style.display = "block";
+                englishForm.style.display = "none";
+            }
+        }
+    </script>
+
+
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+    }
+
+    h1 {
+        color: #333;
+    }
+
+    label {
+        font-weight: bold;
+        margin-top: 10px;
+        display: block;
+    }
+
+    select, textarea {
+        width: 100%;
+        padding: 12px;
+        display: inline-block;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+        border-radius: 4px;
+        max-width: 540px;
+        margin: 1rem auto;
+    }
+    option {
+        padding: 20px;
+    }
+
+    button {
+        background-color: #e2eae2e6;
+        color: #121212;
+        padding: 10px 15px;
+        margin: 8px 0;
+        border: 2px solid gray;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all .4s ease-in-out;
+    }
+
+    button:hover {
+        /* background-color: #45a049; */
+        background-color: gray;
+        border: 2px solid #e2eae2e6;
+        border-radius: 4px;
+        color: white;
+    }
+
+    form {
+        max-width: 500px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    p {
+        color: #333;
+        margin: 10px 0;
+    }
+</style>
+
+    
+</head>
+<body>
+    <h1>Translation App</h1>
+
+    <label for="language">Select Language:</label>
+    <select id="language" onchange="toggleForm()">
+        <option value="en">English</option>
+        <option value="hi">Hindi</option>
+    </select>
+
+    <form id="englishForm" method="post" action="/translate">
+        <label for="text">Enter English text:</label>
+        <textarea id="text" name="text" rows="4" cols="50"></textarea>
+        <input type="hidden" name="direction" value="en_to_hi">
+        <br>
+        <button type="submit">Translate to Hindi</button>
+    </form>
+
+    <form id="hindiForm" style="display: none;" method="post" action="/translate">
+        <label for="text">Enter Hindi text:</label>
+        <textarea id="text" name="text" rows="4" cols="50"></textarea>
+        <input type="hidden" name="direction" value="hi_to_en">
+        <br>
+        <button type="submit">Translate to English</button>
+    </form>
+
+    {% if original_text %}
+        <h3>Original Text: {{ original_text }}</h3>
+
+        {% if translation_direction == "en_to_hi" %}
+            <p>Hindi Translation: {{ hindi_translation }}</p>
+        {% elif translation_direction == "hi_to_en" %}
+            <p>English Translation: {{ english_translation }}</p>
+        {% endif %}
+
+    {% endif %}
+</body>
+</html>
